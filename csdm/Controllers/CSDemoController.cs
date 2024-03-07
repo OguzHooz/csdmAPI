@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text.Json;
+using csdm.Models;
 
 namespace csdm.Controllers
 {
@@ -31,12 +32,11 @@ namespace csdm.Controllers
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C csdm json {path}",
+                    Arguments = $"/C csdm json {path} --output-folder data --force-analyze",
                     UseShellExecute = false,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true,
-
                 }
             };
             jsonProcess.Start();
@@ -53,20 +53,20 @@ namespace csdm.Controllers
             }
 
             Guid guid = Guid.NewGuid();
-            var filePath = Path.Combine(AppContext.BaseDirectory, $"{guid}.dem");
+            string filePath = $"data/{guid}.dem";
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
 
-            await RunCommands($"{guid}.dem");
+            await RunCommands($"data/{guid}.dem");
 
-            var jsonFile = Path.Combine(AppContext.BaseDirectory, $"{guid}.json");
-            
+            string jsonFile = $"data/{guid}.json";
+
             var jsonRead = await System.IO.File.ReadAllTextAsync(jsonFile);
-            
-            object jsonResult = JsonSerializer.Serialize(jsonRead);
+
+            var jsonResult = JsonSerializer.Deserialize<Root>(jsonRead);
 
             return Ok(jsonResult);
         }
