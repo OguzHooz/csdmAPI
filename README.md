@@ -4,6 +4,6 @@ The [CS Demo Manager CLI](https://cs-demo-manager.com/) and [PostgreSQL](https:/
 
 
 ## todo
-- [ ] Fix run commands
+- [X] Fix run commands
 - [ ] Fix long load times due to big JSON files
-- [ ] Fix API return type (currently returns text/plain)
+- [X] Fix API return type (currently returns text/plain)
