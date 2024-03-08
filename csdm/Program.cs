@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.Http.Features;
+
 namespace csdm
 {
     public class Program
@@ -13,6 +15,11 @@ namespace csdm
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 300000000;
+            });
 
             var app = builder.Build();
 

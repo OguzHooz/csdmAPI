@@ -7,7 +7,7 @@ namespace csdm.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [RequestSizeLimit(200000000)]
+    [RequestSizeLimit(300000000)]
     public class CSDemoController : ControllerBase
     {
         private async Task RunCommands(string path)
