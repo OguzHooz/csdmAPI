@@ -83,7 +83,7 @@
         public int assistCount { get; set; }
         public int deathCount { get; set; }
         public int collateralKillCount { get; set; }
-        public int duration { get; set; }
+        public double duration { get; set; }
         public string analyzeDate { get; set; }
         public int shotCount { get; set; }
         public string winnerName { get; set; }

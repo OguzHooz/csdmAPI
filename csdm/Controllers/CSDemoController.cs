@@ -52,6 +52,21 @@ namespace csdm.Controllers
                 return BadRequest("No file uploaded");
             }
 
+            byte[] headerBytes = new byte[4];
+            using (var stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                stream.Position = 2;
+                stream.Read(headerBytes, 0, 4);
+
+                if (headerBytes[0] != 0x44 && headerBytes[1] != 0x45 && headerBytes[2] != 0x4D | 
+                    headerBytes[1] != 0x44 && headerBytes[2] != 0x45 && headerBytes[3] != 0x4D)
+                {
+                    return BadRequest("Invalid file format. The uploaded file is not a valid .dem file.");
+                }
+            }
+
+
             Guid guid = Guid.NewGuid();
             string filePath = $"data/{guid}.dem";
             using (var stream = new FileStream(filePath, FileMode.Create))
