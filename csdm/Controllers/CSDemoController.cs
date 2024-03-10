@@ -66,6 +66,7 @@ namespace csdm.Controllers
                 }
             }
 
+            Directory.CreateDirectory("data");
 
             Guid guid = Guid.NewGuid();
             string filePath = $"data/{guid}.dem";
