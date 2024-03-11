@@ -32,7 +32,7 @@ namespace csdm.Controllers
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C csdm json {path} --output-folder data --force-analyze",
+                    Arguments = $"/C csdm json {path} --output-folder data",
                     UseShellExecute = false,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
@@ -68,17 +68,17 @@ namespace csdm.Controllers
 
             Directory.CreateDirectory("data");
 
-            Guid guid = Guid.NewGuid();
-            string filePath = $"data/{guid}.dem";
+            string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+            string filePath = $"data/{fileName}.dem";
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
 
-            await RunCommands($"data/{guid}.dem");
+            await RunCommands($"data/{fileName}.dem");
 
-            string jsonFile = $"data/{guid}.json";
+            string jsonFile = $"data/{fileName}.json";
 
             var jsonRead = await System.IO.File.ReadAllTextAsync(jsonFile);
 
