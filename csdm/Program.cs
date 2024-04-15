@@ -1,5 +1,8 @@
 
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using csdm.Data;
 
 namespace csdm
 {
@@ -8,6 +11,8 @@ namespace csdm
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<csdmContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("csdmContext") ?? throw new InvalidOperationException("Connection string 'csdmContext' not found.")));
 
             // Add services to the container.
 

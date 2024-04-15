@@ -1,4 +1,7 @@
-﻿namespace csdm.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace csdm.Models
 {
     public class Player
     {
@@ -23,6 +26,7 @@
         public int mvpCount { get; set; }
         public int headshotCount { get; set; }
         public int headshotPercentage { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string id { get; set; }
         public double kast { get; set; }
         public int killCount { get; set; }
@@ -59,7 +63,7 @@
         public string avatar { get; set; }
         public double hltvRating { get; set; }
         public double hltvRating2 { get; set; }
-        public object lastBanDate { get; set; }
+        public string? lastBanDate { get; set; }
         public string crosshairShareCode { get; set; }
         public int collateralKillCount { get; set; }
         public int wallbangKillCount { get; set; }
@@ -68,6 +72,7 @@
 
     public class Root
     {
+        [Key]
         public string checksum { get; set; }
         public string demoFilePath { get; set; }
         public string game { get; set; }
@@ -100,11 +105,12 @@
         public List<Player> players { get; set; }
         public List<Round> rounds { get; set; }
         public string comment { get; set; }
-        public List<object> tagIds { get; set; }
+        //public List<object> tagIds { get; set; }
     }
 
     public class Round
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
         public int number { get; set; }
         public int startTick { get; set; }
@@ -137,6 +143,7 @@
     public class TeamA
     {
         public int currentSide { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
         public string letter { get; set; }
         public string matchChecksum { get; set; }
@@ -149,6 +156,7 @@
     public class TeamB
     {
         public int currentSide { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
         public string letter { get; set; }
         public string matchChecksum { get; set; }
