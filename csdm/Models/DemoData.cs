@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace csdm.Models
-=======
-﻿namespace csdm.Models
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
 {
     public class Player
     {
@@ -30,10 +26,7 @@ namespace csdm.Models
         public int mvpCount { get; set; }
         public int headshotCount { get; set; }
         public int headshotPercentage { get; set; }
-<<<<<<< HEAD
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         public string id { get; set; }
         public double kast { get; set; }
         public int killCount { get; set; }
@@ -70,11 +63,7 @@ namespace csdm.Models
         public string avatar { get; set; }
         public double hltvRating { get; set; }
         public double hltvRating2 { get; set; }
-<<<<<<< HEAD
         public string? lastBanDate { get; set; }
-=======
-        public object lastBanDate { get; set; }
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         public string crosshairShareCode { get; set; }
         public int collateralKillCount { get; set; }
         public int wallbangKillCount { get; set; }
@@ -83,10 +72,7 @@ namespace csdm.Models
 
     public class Root
     {
-<<<<<<< HEAD
         [Key]
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         public string checksum { get; set; }
         public string demoFilePath { get; set; }
         public string game { get; set; }
@@ -119,19 +105,12 @@ namespace csdm.Models
         public List<Player> players { get; set; }
         public List<Round> rounds { get; set; }
         public string comment { get; set; }
-<<<<<<< HEAD
         //public List<object> tagIds { get; set; }
-=======
-        public List<object> tagIds { get; set; }
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
     }
 
     public class Round
     {
-<<<<<<< HEAD
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         public int id { get; set; }
         public int number { get; set; }
         public int startTick { get; set; }
@@ -164,10 +143,7 @@ namespace csdm.Models
     public class TeamA
     {
         public int currentSide { get; set; }
-<<<<<<< HEAD
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         public int id { get; set; }
         public string letter { get; set; }
         public string matchChecksum { get; set; }
@@ -180,10 +156,7 @@ namespace csdm.Models
     public class TeamB
     {
         public int currentSide { get; set; }
-<<<<<<< HEAD
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         public int id { get; set; }
         public string letter { get; set; }
         public string matchChecksum { get; set; }

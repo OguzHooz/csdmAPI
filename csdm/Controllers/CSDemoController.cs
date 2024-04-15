@@ -2,10 +2,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using csdm.Models;
-<<<<<<< HEAD
 using csdm.Data;
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
 
 namespace csdm.Controllers
 {
@@ -14,7 +11,6 @@ namespace csdm.Controllers
     [RequestSizeLimit(300000000)]
     public class CSDemoController : ControllerBase
     {
-<<<<<<< HEAD
         private readonly csdmContext _context;
 
         public CSDemoController(csdmContext context)
@@ -23,8 +19,6 @@ namespace csdm.Controllers
         }
 
 
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         private async Task RunCommands(string path)
         {
             var analyzeProcess = new Process
@@ -47,7 +41,7 @@ namespace csdm.Controllers
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C csdm json {path} --output-folder data",
+                    Arguments = $"/C csdm json {path} --output-folder csData",
                     UseShellExecute = false,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
@@ -74,32 +68,31 @@ namespace csdm.Controllers
                 stream.Position = 2;
                 stream.Read(headerBytes, 0, 4);
 
-                if (headerBytes[0] != 0x44 && headerBytes[1] != 0x45 && headerBytes[2] != 0x4D | 
+                if (headerBytes[0] != 0x44 && headerBytes[1] != 0x45 && headerBytes[2] != 0x4D |
                     headerBytes[1] != 0x44 && headerBytes[2] != 0x45 && headerBytes[3] != 0x4D)
                 {
                     return BadRequest("Invalid file format. The uploaded file is not a valid .dem file.");
                 }
             }
 
-            Directory.CreateDirectory("data");
+            Directory.CreateDirectory("csData");
 
             string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-            string filePath = $"data/{fileName}.dem";
+            string filePath = $"csData/{fileName}.dem";
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
 
-            await RunCommands($"data/{fileName}.dem");
+            await RunCommands($"csData/{fileName}.dem");
 
-            string jsonFile = $"data/{fileName}.json";
+            string jsonFile = $"csData/{fileName}.json";
 
             var jsonRead = await System.IO.File.ReadAllTextAsync(jsonFile);
 
             var jsonResult = JsonSerializer.Deserialize<Root>(jsonRead);
 
-<<<<<<< HEAD
             if (_context.Root.Any(e => e.checksum == jsonResult.checksum))
             {
                 return Ok($"Data is already in database with ID: {jsonResult.checksum}");
@@ -108,8 +101,6 @@ namespace csdm.Controllers
             _context.Root.Add(jsonResult);
             await _context.SaveChangesAsync();
 
-=======
->>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
             return Ok(jsonResult);
         }
     }
