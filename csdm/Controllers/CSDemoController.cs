@@ -2,7 +2,10 @@
 using System.Diagnostics;
 using System.Text.Json;
 using csdm.Models;
+<<<<<<< HEAD
 using csdm.Data;
+=======
+>>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
 
 namespace csdm.Controllers
 {
@@ -11,6 +14,7 @@ namespace csdm.Controllers
     [RequestSizeLimit(300000000)]
     public class CSDemoController : ControllerBase
     {
+<<<<<<< HEAD
         private readonly csdmContext _context;
 
         public CSDemoController(csdmContext context)
@@ -19,6 +23,8 @@ namespace csdm.Controllers
         }
 
 
+=======
+>>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
         private async Task RunCommands(string path)
         {
             var analyzeProcess = new Process
@@ -93,6 +99,7 @@ namespace csdm.Controllers
 
             var jsonResult = JsonSerializer.Deserialize<Root>(jsonRead);
 
+<<<<<<< HEAD
             if (_context.Root.Any(e => e.checksum == jsonResult.checksum))
             {
                 return Ok($"Data is already in database with ID: {jsonResult.checksum}");
@@ -101,6 +108,8 @@ namespace csdm.Controllers
             _context.Root.Add(jsonResult);
             await _context.SaveChangesAsync();
 
+=======
+>>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
             return Ok(jsonResult);
         }
     }

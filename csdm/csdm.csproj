@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+<<<<<<< HEAD
     <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 
@@ -15,13 +16,22 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+=======
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+>>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="data\" />
+<<<<<<< HEAD
     <Folder Include="Migrations\" />
+=======
+>>>>>>> 67c149afad9ee6d6098bf3aa8807f134344ac229
   </ItemGroup>
 
 </Project>
