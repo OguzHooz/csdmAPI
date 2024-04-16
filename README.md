@@ -4,6 +4,5 @@ The [CS Demo Manager CLI](https://cs-demo-manager.com/) and [PostgreSQL](https:/
 
 
 ## todo
-- [X] Fix run commands
-- [ ] Fix long load times due to big JSON files
-- [X] Fix API return type (currently returns text/plain)
+- [ ] Add endpoints for retrieving data for a specific player
+- [ ] Add endpoints for retrieving data from a specific game from a specific player
