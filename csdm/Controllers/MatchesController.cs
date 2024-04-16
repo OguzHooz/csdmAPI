@@ -12,11 +12,11 @@ namespace csdm.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StatsController : ControllerBase
+    public class MatchesController : ControllerBase
     {
         private readonly csdmContext _context;
 
-        public StatsController(csdmContext context)
+        public MatchesController(csdmContext context)
         {
             _context = context;
         }
@@ -34,15 +34,15 @@ namespace csdm.Controllers
         }
 
         // GET: api/Roots/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Root>> GetRoot(string id)
+        [HttpGet("{checksum}")]
+        public async Task<ActionResult<Root>> GetRoot(string checksum)
         {
             var root = await _context.Root
                 .Include(r => r.teamA)
                 .Include(r => r.teamB)
                 .Include(r => r.players)
                 .Include(r => r.rounds)
-                .SingleOrDefaultAsync(r => r.checksum == id);
+                .SingleOrDefaultAsync(r => r.checksum == checksum);
 
             if (root == null)
             {
@@ -54,10 +54,10 @@ namespace csdm.Controllers
 
         // PUT: api/Roots/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoot(string id, Root root)
+        [HttpPut("{checksum}")]
+        public async Task<IActionResult> PutRoot(string checksum, Root root)
         {
-            if (id != root.checksum)
+            if (checksum != root.checksum)
             {
                 return BadRequest();
             }
@@ -70,7 +70,7 @@ namespace csdm.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RootExists(id))
+                if (!RootExists(checksum))
                 {
                     return NotFound();
                 }
@@ -109,10 +109,10 @@ namespace csdm.Controllers
         }
 
         // DELETE: api/Roots/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoot(string id)
+        [HttpDelete("{checksum}")]
+        public async Task<IActionResult> DeleteRoot(string checksum)
         {
-            var root = await _context.Root.FindAsync(id);
+            var root = await _context.Root.FindAsync(checksum);
             if (root == null)
             {
                 return NotFound();
@@ -124,9 +124,9 @@ namespace csdm.Controllers
             return NoContent();
         }
 
-        private bool RootExists(string id)
+        private bool RootExists(string checksum)
         {
-            return _context.Root.Any(e => e.checksum == id);
+            return _context.Root.Any(e => e.checksum == checksum);
         }
     }
 }

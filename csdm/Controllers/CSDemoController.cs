@@ -93,7 +93,8 @@ namespace csdm.Controllers
 
             var jsonResult = JsonSerializer.Deserialize<Root>(jsonRead);
 
-            if (_context.Root.Any(e => e.checksum == jsonResult.checksum))
+            var existingPlayerIds = _context.Player.Select(p => p.id).ToList();
+            if (_context.Root.Any(e => e.checksum == jsonResult.checksum) & !_context.Player.Any(p => existingPlayerIds.Contains(p.id)))
             {
                 return Ok($"Data is already in database with ID: {jsonResult.checksum}");
             }

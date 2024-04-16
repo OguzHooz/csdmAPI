@@ -40,5 +40,6 @@ namespace csdm.Data
                 .HasForeignKey<TeamB>(t => t.matchChecksum)
                 .OnDelete(DeleteBehavior.Cascade);
         }
+        public DbSet<csdm.Models.Player> Player { get; set; } = default!;
     }
 }
