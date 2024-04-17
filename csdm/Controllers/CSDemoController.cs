@@ -94,15 +94,24 @@ namespace csdm.Controllers
             var jsonResult = JsonSerializer.Deserialize<Root>(jsonRead);
 
             var existingPlayerIds = _context.Player.Select(p => p.id).ToList();
-            if (_context.Root.Any(e => e.checksum == jsonResult.checksum) & !_context.Player.Any(p => existingPlayerIds.Contains(p.id)))
+            var missingPlayers = jsonResult.players.Where(p => !existingPlayerIds.Contains(p.id)).ToList();
+
+            if (_context.Root.Any(e => e.checksum == jsonResult.checksum) && missingPlayers.Any())
             {
-                return Ok($"Data is already in database with ID: {jsonResult.checksum}");
+                _context.Player.AddRange(missingPlayers);
+                _context.SaveChanges();
+                return Ok($"Added {missingPlayers.Count} new player(s) to the database for the existing match with checksum: {jsonResult.checksum}");
             }
-
-            _context.Root.Add(jsonResult);
-            await _context.SaveChangesAsync();
-
-            return Ok(jsonResult);
+            else if (!_context.Root.Any(e => e.checksum == jsonResult.checksum))
+            {
+                _context.Root.AddRange(jsonResult);
+                _context.SaveChanges();
+                return Ok($"Added new match and all players to the database with checksum: {jsonResult.checksum}");
+            }
+            else
+            {
+                return Ok($"Data is already in the database with checksum: {jsonResult.checksum}, and no new players found.");
+            }
         }
     }
 }

@@ -6,6 +6,10 @@
 # Demo files and JSON files
 /csdm/csData
 
+
+# Migration files
+/csdm/Migrations
+
 # User-specific files
 *.rsuser
 *.suo
