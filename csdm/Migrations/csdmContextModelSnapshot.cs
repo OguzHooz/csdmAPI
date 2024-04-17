@@ -26,9 +26,6 @@ namespace csdm.Migrations
                     b.Property<string>("id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Rootchecksum")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("assistCount")
                         .HasColumnType("int");
 
@@ -117,7 +114,7 @@ namespace csdm.Migrations
 
                     b.Property<string>("matchChecksum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("mvpCount")
                         .HasColumnType("int");
@@ -220,7 +217,7 @@ namespace csdm.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Rootchecksum");
+                    b.HasIndex("matchChecksum");
 
                     b.ToTable("Player");
                 });
@@ -231,6 +228,7 @@ namespace csdm.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("analyzeDate")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("assistCount")
@@ -334,9 +332,6 @@ namespace csdm.Migrations
                     b.Property<int>("id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Rootchecksum")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("duration")
                         .HasColumnType("int");
 
@@ -363,7 +358,7 @@ namespace csdm.Migrations
 
                     b.Property<string>("matchChecksum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("number")
                         .HasColumnType("int");
@@ -421,7 +416,7 @@ namespace csdm.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Rootchecksum");
+                    b.HasIndex("matchChecksum");
 
                     b.ToTable("Round");
                 });
@@ -504,16 +499,18 @@ namespace csdm.Migrations
                 {
                     b.HasOne("csdm.Models.Root", null)
                         .WithMany("players")
-                        .HasForeignKey("Rootchecksum")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("matchChecksum")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("csdm.Models.Round", b =>
                 {
                     b.HasOne("csdm.Models.Root", null)
                         .WithMany("rounds")
-                        .HasForeignKey("Rootchecksum")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("matchChecksum")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("csdm.Models.TeamA", b =>

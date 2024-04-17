@@ -21,11 +21,13 @@ namespace csdm.Data
             modelBuilder.Entity<Root>()
                 .HasMany(r => r.players)
                 .WithOne()
+                .HasForeignKey(p => p.matchChecksum)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Root>()
                 .HasMany(r => r.rounds)
                 .WithOne()
+                .HasForeignKey(r => r.matchChecksum)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Root>()
