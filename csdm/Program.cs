@@ -10,9 +10,25 @@ namespace csdm
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<csdmContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("csdmContext") ?? throw new InvalidOperationException("Connection string 'csdmContext' not found.")));
+            //builder.Services.AddDbContext<csdmContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("csdmContext") ?? throw new InvalidOperationException("Connection string 'csdmContext' not found.")));
+            
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDbContext<csdmContext>(options =>
+                options.UseSqlServer(builder.Configuration["DEV_DB"] ?? throw new InvalidOperationException("Dev connection string 'DEV_DB' not found.")));
+            }
 
+            if (builder.Environment.IsProduction())
+            {
+                IConfigurationRoot config = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.Production.json", optional: false)
+                    .AddUserSecrets<Program>()
+                    .Build();
+                builder.Services.AddDbContext<csdmContext>(options =>
+                options.UseSqlServer(config["PROD_DB"] ?? throw new InvalidOperationException("Prod connection string 'PROD_DB' not found.")));
+            }
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -26,9 +42,15 @@ namespace csdm
             });
 
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            if (app.Environment.IsProduction())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

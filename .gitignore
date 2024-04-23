@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Production appsettings.json
+/csdm/appsettings.Production.json
+
 # Demo files and JSON files
 /csdm/csData
 
